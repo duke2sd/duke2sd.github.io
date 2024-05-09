@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="icon" href="assets/img/favicon.ico">
+<title>Koding Finesse</title>
+<!-- Bootstrap core CSS -->
+<link href="assets/css/bootstrap.min.css" rel="stylesheet">
+<!-- Fonts -->
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Righteous%7CMerriweather:300,300i,400,400i,700,700i" rel="stylesheet">
+<!-- Custom styles for this template -->
+<link href="assets/css/mediumish.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- Begin Nav
+================================================== -->
+<nav class="navbar navbar-toggleable-md navbar-light bg-white fixed-top mediumnavigation">
+<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+<span class="navbar-toggler-icon"></span>
+</button>
+<div class="container">
+	<!-- Begin Logo -->
+	<a class="navbar-brand" href="index.html">
+	<img src="assets/img/logo.png" alt="logo">
+	</a>
+	<!-- End Logo -->
+	<div class="collapse navbar-collapse" id="navbarsExampleDefault">
+		<!-- Begin Menu -->
+		<ul class="navbar-nav ml-auto">
+			<li class="nav-item active">
+			<a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+			</li>
+			<li class="nav-item">
+			<a class="nav-link" href="post.html">Posts</a>
+			</li>
+			<li class="nav-item">
+			<a class="nav-link" href="author.html">Author</a>
+			</li>
+		</ul>
+		<!-- End Menu -->
+		<!-- Begin Search -->
+		<form class="form-inline my-2 my-lg-0">
+			<input class="form-control mr-sm-2" type="text" placeholder="Search">
+			<span class="search-icon"><svg class="svgIcon-use" width="25" height="25" viewbox="0 0 25 25"><path d="M20.067 18.933l-4.157-4.157a6 6 0 1 0-.884.884l4.157 4.157a.624.624 0 1 0 .884-.884zM6.5 11c0-2.62 2.13-4.75 4.75-4.75S16 8.38 16 11s-2.13 4.75-4.75 4.75S6.5 13.62 6.5 11z"></path></svg></span>
+		</form>
+		<!-- End Search -->
+	</div>
+</div>
+</nav>
+<!-- End Nav
+================================================== -->
+
+<!-- Begin Article
+================================================== -->
+<div class="container">
+	<div class="row">
+
+		<!-- Begin Post -->
+		<div class="col-md-8 col-md-offset-2 col-xs-12">
+			<div class="mainheading">
+
+				<!-- Begin Top Meta -->
+				<div class="row post-top-meta">
+					<div class="col-md-2">
+						<a href="author.html"><img class="author-thumb" src="https://www.gravatar.com/avatar/e56154546cf4be74e393c62d1ae9f9d4?s=250&amp;d=mm&amp;r=x" alt="Darren"></a>
+					</div>
+					<div class="col-md-10">
+						<a class="link-dark" href="author.html">Darren</a><a href="#" class="btn follow">Follow</a>
+						<span class="author-description">Former businessman and aspiring Data Scientist.</span>
+						<span class="post-date">May 8, 2024</span><span class="dot"></span>
+					</div>
+				</div>
+				<!-- End Top Menta -->
+
+				<h1 class="posttitle">Networking Lab Walkthrough: Understanding Subnetting with CIDR Notation</h1>
+
+			</div>
+
+			<!-- Begin Featured Image -->
+			<img class="featured-image img-fluid" src="#" alt="">
+			<!-- End Featured Image -->
+
+			<!-- Begin Post Content -->
+			<div class="article-post">
+				<h4>Objective</h4>
+				<p>
+					CIDR (Classless Inter-Domain Routing) notation is a method used to specify IP addresses and their associated network prefixes. It allows for flexible allocation of IP addresses without being bound to traditional classful boundaries.
+				</p>
+				<p>
+					In CIDR notation, an IP address is followed by a forward slash and a number representing the number of significant bits in the network prefix. For example, 192.168.2.0/26 indicates that the first 26 bits are the network portion.
+				</p>
+				<h4>Task 1: Determining Subnet Mask and Subnet Bits</h4>
+				<p>
+					We start with an IP address (192.168.2.0) and a given subnet prefix (/26). By adding 2 bits to the standard 24-bit subnet mask (255.255.255.0), we calculate a new subnet mask of 255.255.255.192.
+				</p>
+				<p>
+					This new subnet mask corresponds to borrowing 2 bits for subnetting, leaving 6 bits for host addresses.
+				</p>
+				<h4>Task 2: Calculating Subnets and Hosts</h4>
+				<p>
+					With 2 bits borrowed for subnetting (/26), we calculate the number of subnets and hosts. Borrowing 2 bits for subnetting gives us 2^2 = 4 subnets.
+				</p>
+				<p>
+					The remaining 6 bits are available for host addresses, giving us 2^6 = 64 hosts per subnet.
+				</p>
+				<h4>Task 3: Identifying the Subnet for a Given Host</h4>
+				<p>
+					We encounter a host IP address (172.16.100.118) with a subnet prefix (/29). Examining the subnet mask, we see that /29 corresponds to 255.255.255.248. By counting 5 bits into the last octet, we note that subnets increase in increments of 8.
+				</p>
+				<p>
+					We quickly identify the subnet containing the host by jumping in increments of 8 and find that 172.16.100.112 is the subnet containing the host 172.16.100.118.
+				</p>
+				<h4>Conclusion</h4>
+				<p>
+					Through this lab, we've gained practical experience in subnetting IPv4 addresses using CIDR notation. We've learned how to calculate subnets, determine the number of hosts per subnet, and identify the subnet for a given host address. This skill is essential for network administrators and engineers to efficiently manage IP address allocation and routing.
+				</p>
+			</div>
+			<!-- End Post Content -->
+
+			<!-- Begin Tags -->
+			<div class="after-post-tags">
+				<ul class="tags">
+					<li><a href="#">Design</a></li>
+					<li><a href="#">Growth Mindset</a></li>
+					<li><a href="#">Productivity</a></li>
+					<li><a href="#">Personal Growth</a></li>
+				</ul>
+			</div>
+			<!-- End Tags -->
+
+		</div>
+		<!-- End Post -->
+
+	</div>
+</div>
+
+<!-- Begin Footer
+================================================== -->
+<div class="container">
+	<div class="footer">
+	  <p class="pull-left">
+	    Copyright &copy; 2024 Darren P. Tran
+	  </p>
+	  <p class="pull-right">
+	    Just another tech & fitness blog.
+	  </p>
+	<div class="clearfix"></div>
+	</div>
+</div>
+<!-- End Footer
+================================================== -->
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="assets/js/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+<script src="assets/js/ie10-viewport-bug-workaround.js"></script>
+<script src="assets/js/mediumish.js"></script>
+</body>
+</html>
