@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab Walkthrough: Configuring WPA2 and TKIP</title>
+</head>
+<body>
+    <h1>Lab Walkthrough: Configuring WPA2 and TKIP on a Wireless Access Point</h1>
+
+    <h2>Lab Objective</h2>
+    <p>Learn how to configure WPA2 and TKIP on a wireless access point.</p>
+
+    <h2>Lab Purpose</h2>
+    <p>WPA2 has replaced WPA as the preferred security protocol for wireless connections. WPA2 can work with other protocols to offer enhanced security. TKIP-RC4 stream cipher is used with a 128-bit per packet key, meaning each packet has a unique key.</p>
+
+    <h2>Lab Tool</h2>
+    <p>Packet Tracer</p>
+
+    <h2>Lab Topology</h2>
+    <ul>
+        <li>A laptop is connected to a wireless access point (AP) by a wireless connection.</li>
+        <li>The access point is connected to a router using an Ethernet cable.</li>
+    </ul>
+
+    <h2>Task 1: Connect Router to Access Point and Add Laptop</h2>
+    <ol>
+        <li>Add a Router, Access Point, and Laptop to the Workspace:</li>
+        <ul>
+            <li>Use a crossover cable to connect the router to the access point.</li>
+            <li>Insert a wireless card into the laptop’s side slot.</li>
+            <li>Label the wireless device as <code>AP-PT</code> in Packet Tracer.</li>
+        </ul>
+    </ol>
+
+    <h2>Task 2: Configure IP Address on the Router</h2>
+    <ol>
+        <li>Access the Router CLI:</li>
+        <ul>
+            <li>Click on the router, go to the CLI tab.</li>
+        </ul>
+        <li>Enter Configuration Mode:</li>
+        <pre>
+Router>en
+Router#conf t
+        </pre>
+        <li>Configure the Ethernet Interface:</li>
+        <pre>
+Router(config)#int f0/0
+Router(config-if)#ip add 192.168.1.1 255.255.255.0
+Router(config-if)#no shut
+        </pre>
+    </ol>
+
+    <h2>Task 3: Configure Security and Wireless Settings on the Access Point</h2>
+    <ol>
+        <li>Access the Access Point Config Tab:</li>
+        <ul>
+            <li>Click on the access point, go to the Config tab.</li>
+        </ul>
+        <li>Set Wireless Settings:</li>
+        <ul>
+            <li><strong>SSID:</strong> <code>calbright</code></li>
+            <li><strong>Pass Phrase:</strong> <code>123456789</code></li>
+            <li><strong>Security:</strong> <code>WPA2-PSK</code></li>
+            <li><strong>Encryption:</strong> <code>TKIP</code></li>
+        </ul>
+    </ol>
+
+    <h2>Task 4: Configure Wireless Card Settings on the Laptop</h2>
+    <ol>
+        <li>Access the Laptop Config Tab:</li>
+        <ul>
+            <li>Click on the laptop, go to the Config tab.</li>
+        </ul>
+        <li>Set Wireless Configuration:</li>
+        <ul>
+            <li><strong>SSID:</strong> <code>calbright</code></li>
+            <li><strong>Pass Phrase:</strong> <code>123456789</code></li>
+            <li><strong>Security:</strong> <code>WPA2-PSK</code></li>
+            <li><strong>Encryption:</strong> <code>TKIP</code></li>
+        </ul>
+        <li>Set IPv4 Address:</li>
+        <ul>
+            <li><strong>IP Address:</strong> <code>192.168.1.2</code></li>
+            <li><strong>Subnet Mask:</strong> <code>255.255.255.0</code></li>
+        </ul>
+    </ol>
+
+    <h2>Task 5: Add Default Gateway on the Laptop</h2>
+    <ol>
+        <li>Access the Laptop Config Tab:</li>
+        <ul>
+            <li>Click on the laptop, go to the Config tab.</li>
+        </ul>
+        <li>Set Default Gateway:</li>
+        <ul>
+            <li><strong>Default Gateway:</strong> <code>192.168.1.1</code></li>
+        </ul>
+    </ol>
+
+    <h2>Task 6: Verify Wireless Connection</h2>
+    <ol>
+        <li>Check the Canvas:</li>
+        <ul>
+            <li>Ensure the laptop is wirelessly connected to the access point.</li>
+            <li>Verify the access point is connected to the router.</li>
+        </ul>
+    </ol>
+
+    <h2>Task 7: Ping from Laptop to Router</h2>
+    <ol>
+        <li>Ping Command:</li>
+        <ul>
+            <li>Open the laptop’s Command Prompt.</li>
+            <li>Run the following command:</li>
+            <pre>ping 192.168.1.1</pre>
+        </ul>
+    </ol>
+
+    <h2>Conclusion</h2>
+    <p>You have successfully configured WPA2 with TKIP on a wireless access point and established a wireless connection between the laptop and the router. The laptop should be able to ping the router, confirming the connection is active.</p>
+
+    <h2>Notes</h2>
+    <p>WPA2 is being replaced by WPA3, but adoption will take time as new devices incorporate the updated protocol.</p>
+</body>
+</html>
