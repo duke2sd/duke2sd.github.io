@@ -96,47 +96,42 @@
     
     <p>Router(config-if)#ip add 192.168.1.1 255.255.255.0</p>
     
-3. Bring the interface up:
+<p>3. Bring the interface up:</p>
     
-    Router(config-if)#no shut
+</p>Router(config-if)#no shut</p>
     
 
-Task 2: Configure the PC's IP Address
-1. On the PC, navigate to the `IP Configuration` window.
-2. Set the following:
-    - IP Address: 192.168.1.2
-    - Subnet Mask: 255.255.255.0
-    - Default Gateway: 192.168.1.1
+<h4>Task 2: Configure the PC's IP Address</h4>
+<p>1. On the PC, navigate to the `IP Configuration` window.</p>
+<p>2. Set the following:</p>
+    <p>- IP Address: 192.168.1.2</p>
+    <p>- Subnet Mask: 255.255.255.0</p>
+    <p>- Default Gateway: 192.168.1.1</p>
 
-Task 3: Configure SNMP on the Router
-1. Set up SNMP read/write access with the community string `101labs`:
-    
-    Router(config)#snmp-server community 101labs rw
-    
-    You should see a message indicating a warm start.
+<h4>Task 3: Configure SNMP on the Router</h4>
+<p>1. Set up SNMP read/write access with the community string `101labs`:</p>
+        <p>Router(config)#snmp-server community 101labs rw</p>
+        <p>You should see a message indicating a warm start.</p>
 
-Task 4: Open the MIB Browser on the PC
-1. Open the MIB browser on the PC.
-2. Enter the router's IP address (192.168.1.1).
-3. In the ‘Advanced’ settings, input `101labs` for both read and write community strings.
+<h4>Task 4: Open the MIB Browser on the PC</h4>
+<p>1. Open the MIB browser on the PC.</p>
+<p>2. Enter the router's IP address (192.168.1.1).</p>
+<p>3. In the ‘Advanced’ settings, input `101labs` for both read and write community strings.</p>
 
-Task 5: Access the sysName MIB
-1. In the MIB browser, drill down to `.iso.org.dod.internet.mgmt.mib-2.system.sysName`.
-2. Press `GO` to populate the router's current name, which should be `Router`.
+<h4>Task 5: Access the sysName MIB</h4>
+<p>1. In the MIB browser, drill down to `.iso.org.dod.internet.mgmt.mib-2.system.sysName`.</p>
+<p>2. Press `GO` to populate the router's current name, which should be `Router`.</p>
 
-Task 6: Change the Router Name Using SNMP
-1. In the MIB browser, change the operation to `Set`.
-2. Set the data type to `OctetString`.
-3. Enter `101Labs` as the value.
-4. Press `OK`, then press `GO`.
+<h4>Task 6: Change the Router Name Using SNMP</h4>
+<p>1. In the MIB browser, change the operation to `Set`.</p>
+<p>2. Set the data type to `OctetString`.</p>
+<p>3. Enter `101Labs` as the value.</p>
+<p>4. Press `OK`, then press `GO`.</p>
 
-Task 7: Verify the Router Name Change
-1. You should see the router's name change to `101Labs`.
-2. On the router, press `Enter` to confirm the change.
+<h4>Task 7: Verify the Router Name Change</h4>
+<p>1. You should see the router's name change to `101Labs`.</p>
+<p>2. On the router, press `Enter` to confirm the change.</p>
 
-Notes:
-SNMP allows not only network monitoring but also configuration changes. Most SNMP software includes a GUI for easier device management.
-        </p>
 			</div>
 			<!-- End Post Content -->
 
