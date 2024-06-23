@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab Walkthrough: Configuring TACACS+ with AAA on a Multilayer Switch</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1, h2 {
+            color: #2c3e50;
+        }
+        pre {
+            background-color: #ecf0f1;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Lab Walkthrough: Configuring TACACS+ with AAA on a Multilayer Switch</h1>
+
+    <h2>Task 1: Connect Devices</h2>
+    <p><strong>1. Connect the PC to the Multilayer Switch (such as a Cisco 3560)</strong></p>
+    <p>Connect the PC's Ethernet port to one of the switch ports.</p>
+
+    <p><strong>2. Connect the Switch to the TACACS+ Server</strong></p>
+    <p>Connect one of the switch ports to the server's Ethernet port.</p>
+
+    <h2>Task 2: Configure PC IP Address</h2>
+    <p><strong>1. On the PC, open the Desktop tab and select IP Configuration.</strong></p>
+    <p>Configure the IP settings as follows:</p>
+    <ul>
+        <li><strong>IP Address</strong>: 10.1.1.1</li>
+        <li><strong>Subnet Mask</strong>: 255.0.0.0</li>
+        <li><strong>Default Gateway</strong>: 10.1.1.20</li>
+        <li><strong>DNS Server</strong>: 0.0.0.0</li>
+    </ul>
+
+    <h2>Task 3: Configure Switch VLAN</h2>
+    <p><strong>1. Access the switch CLI.</strong></p>
+    <p><strong>2. Enter global configuration mode:</strong></p>
+    <pre>
+Switch> enable
+Switch# configure terminal
+    </pre>
+    <p><strong>3. Configure VLAN 1 with an IP address and bring it up:</strong></p>
+    <pre>
+Switch(config)# interface vlan 1
+Switch(config-if)# ip address 10.1.1.20 255.0.0.0
+Switch(config-if)# no shutdown
+Switch(config-if)# exit
+    </pre>
+
+    <h2>Task 4: Configure AAA on the Switch</h2>
+    <p><strong>1. Enable AAA on the switch:</strong></p>
+    <pre>
+Switch(config)# aaa new-model
+    </pre>
+    <p><strong>2. Create a local user account:</strong></p>
+    <pre>
+Switch(config)# username cisco password cisco
+    </pre>
+    <p><strong>3. Set the enable password:</strong></p>
+    <pre>
+Switch(config)# enable password mycisco
+    </pre>
+    <p><strong>4. Create a TACACS+ authentication method list:</strong></p>
+    <pre>
+Switch(config)# aaa authentication login myauth group tacacs+ local
+    </pre>
+    <p><strong>5. Apply the AAA authentication method to the VTY lines:</strong></p>
+    <pre>
+Switch(config)# line vty 0 15
+Switch(config-line)# login authentication myauth
+Switch(config-line)# exit
+    </pre>
+
+    <h2>Task 5: Configure TACACS+ Server Key</h2>
+    <p><strong>1. Specify the TACACS+ server and key:</strong></p>
+    <pre>
+Switch(config)# tacacs-server host 10.1.1.10 key mykey
+    </pre>
+
+    <h2>Task 6: Configure TACACS+ Server IP Address</h2>
+    <p><strong>1. On the TACACS+ server, open the Config tab and select Fast Ethernet 0.</strong></p>
+    <p>Set the IP address as follows:</p>
+    <ul>
+        <li><strong>IP Address</strong>: 10.1.1.10</li>
+    </ul>
+
+    <h2>Task 7: Enable AAA on the Server</h2>
+    <p><strong>1. On the server, open the Services tab and select AAA.</strong></p>
+    <p><strong>2. In the Network Configuration section, add the client:</strong></p>
+    <ul>
+        <li><strong>Client Name</strong>: Switch</li>
+        <li><strong>Client IP</strong>: 10.1.1.20</li>
+        <li><strong>Secret</strong>: mykey</li>
+        <li><strong>Server Type</strong>: Tacacs</li>
+    </ul>
+    <p>Click <strong>Add</strong>.</p>
+    <p><strong>3. In the User Setup section, add the user credentials:</strong></p>
+    <ul>
+        <li><strong>Username</strong>: cisco</li>
+        <li><strong>Password</strong>: cisco</li>
+    </ul>
+    <p>Click <strong>Add</strong>.</p>
+
+    <h2>Task 8: Configure Authorization on the Switch</h2>
+    <p><strong>1. Set up authorization for exec mode:</strong></p>
+    <pre>
+Switch(config)# aaa authorization exec default group tacacs+ local
+    </pre>
+
+    <h2>Task 9: Enable Debugging and Test Authentication</h2>
+    <p><strong>1. Enable debugging for AAA authentication on the switch:</strong></p>
+    <pre>
+Switch# debug aaa authentication
+    </pre>
+    <p><strong>2. From the PC, open a command prompt and Telnet to the switch:</strong></p>
+    <pre>
+PC> telnet 10.1.1.20
+    </pre>
+    <p><strong>3. Enter the username and password when prompted:</strong></p>
+    <ul>
+        <li><strong>Username</strong>: cisco</li>
+        <li><strong>Password</strong>: cisco</li>
+    </ul>
+    <p><strong>4. If successful, you should be able to enter privileged EXEC mode:</strong></p>
+    <pre>
+Switch> enable
+    </pre>
+
+    <h2>Task 10: Check Debug Output</h2>
+    <p><strong>1. Review the debug output on the switch to verify successful authentication:</strong></p>
+    <pre>
+Switch#
+*Aug 29 13:20:16.253: AAA/BIND(1): Bind i/f
+*Aug 29 13:20:16.253: AAA/AUTHEN/LOGIN(1): Pick method list 'myauth'
+    </pre>
+
+    <h2>Summary</h2>
+    <p>In this lab, we configured a TACACS+ server and a multilayer switch to authenticate users using TACACS+ and AAA. By following these tasks, you ensured secure user access control to the network equipment.</p>
+</body>
+</html>
