@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab Walkthrough</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            color: #333;
+        }
+        pre {
+            background: #eee;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .task {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Lab Walkthrough: Fixing an Incorrect Subnet Mask Configuration</h1>
+
+        <h2>Lab Objective:</h2>
+        <p>Learn how to fix an incorrect subnet mask configuration.</p>
+
+        <h2>Lab Purpose:</h2>
+        <p>Incorrect subnet masks can lead to issues with routing protocols and network advertisements. This lab demonstrates how to identify and correct an incorrect subnet mask configuration.</p>
+
+        <h2>Lab Tool:</h2>
+        <p>Packet Tracer</p>
+
+        <h2>Lab Topology:</h2>
+        <p><strong>Topology Description:</strong> Router R0 is connected to Router R1. The connection between them is using the 192.168.1.0/30 subnet, with R0 having the IP address 192.168.1.5 and R1 having the IP address 192.168.1.6.</p>
+
+        <div class="task">
+            <h2>Task 1: Setting Up the Topology</h2>
+            <ol>
+                <li>Drag two routers onto the Packet Tracer canvas.</li>
+                <li>Connect the routers using a crossover cable.</li>
+            </ol>
+        </div>
+
+        <div class="task">
+            <h2>Task 2: Configure IP Addresses on Routers</h2>
+            <h3>Router R0:</h3>
+            <pre>
+Router>en
+Router#conf t
+Router(config)#hostname R0
+R0(config)#int f0/0
+R0(config-if)#ip add 192.168.1.5 255.255.255.252
+R0(config-if)#no shut
+R0(config-if)#exit
+            </pre>
+
+            <h3>Router R1:</h3>
+            <pre>
+Router>en
+Router#conf t
+Router(config)#hostname R1
+R1(config)#int f0/0
+R1(config-if)#ip add 192.168.1.6 255.255.255.252
+R1(config-if)#no shut
+R1(config-if)#exit
+            </pre>
+        </div>
+
+        <div class="task">
+            <h2>Task 3: Configure OSPF on Both Routers</h2>
+            <h3>Router R0:</h3>
+            <pre>
+R0(config)#router ospf 1
+R0(config-router)#network 192.168.1.0 0.0.0.3 area 0
+R0(config-router)#end
+            </pre>
+
+            <h3>Router R1:</h3>
+            <pre>
+R1(config)#router ospf 1
+R1(config-router)#network 192.168.1.0 0.0.0.3 area 0
+            </pre>
+        </div>
+
+        <div class="task">
+            <h2>Task 4: Verify OSPF Configuration</h2>
+            <pre>R1#show ip ospf neighbor</pre>
+        </div>
+
+        <div class="task">
+            <h2>Task 5: Identify the Issue</h2>
+            <p>If no OSPF neighbors are present, the issue may be due to the incorrect subnet mask configuration. The wildcard mask <code>0.0.0.3</code> for <code>192.168.1.0</code> only covers the addresses <code>192.168.1.1</code> and <code>192.168.1.2</code>, not the <code>192.168.1.4</code> subnet which includes <code>192.168.1.5</code> and <code>192.168.1.6</code>.</p>
+        </div>
+
+        <div class="task">
+            <h2>Task 6: Fix the OSPF Configuration</h2>
+            <h3>Router R0:</h3>
+            <pre>
+R0(config)#router ospf 1
+R0(config-router)#no network 192.168.1.0 0.0.0.3 area 0
+R0(config-router)#network 192.168.1.4 0.0.0.3 area 0
+R0(config-router)#end
+            </pre>
+
+            <h3>Router R1:</h3>
+            <pre>
+R1(config)#router ospf 1
+R1(config-router)#no network 192.168.1.0 0.0.0.3 area 0
+R1(config-router)#network 192.168.1.4 0.0.0.3 area 0
+R1(config-router)#end
+            </pre>
+        </div>
+
+        <div class="task">
+            <h2>Task 7: Verify OSPF Neighbors Again</h2>
+            <pre>R1#show ip ospf neighbor</pre>
+            <p>You should now see Router R0 as a neighbor:</p>
+            <pre>
+Neighbor ID     Pri   State           Dead Time   Address         Interface
+192.168.1.5     1     FULL/DR         00:00:36    192.168.1.5     FastEthernet0/0
+            </pre>
+        </div>
+    </div>
+</body>
+</html>
